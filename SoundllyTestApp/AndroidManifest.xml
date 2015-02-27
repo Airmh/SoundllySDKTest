@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.airmh.soundllysdktest"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="21" />
+    
+    <!-- permission -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+	<uses-permission android:name="android.permission.RECORD_AUDIO" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.GET_TASKS" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:name="com.airmh.soundllysdktest.MainApplication">
+        
+        <!-- Google Play Service Version -->
+        <!-- 
+        	Soundlly SDK init후 서비스를 bind 시킬때 발생되는 
+        	"GooglePlayServicesRepairableException"을 해결하기위해 GooglePlayService jar추가
+        	com.soundlly.logtracker.AppInfo.init 도중 위의 Exception이 발생함.
+        	Service init -> Tracker init -> AppInfo init 의 AppInfo에서 Google Add가 사용되는것으로 보임..
+			Google Play Service 사용을 위해 아래와 같이 Play Service Version을 명시....
+			단말에 설치되어있는 Play Service Version과 Manifest에 명시한 버전 차이로 ANR이 발생하는 경우도 있다.
+         -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
+        
+        <activity
+            android:name="com.airmh.soundllysdktest.MainActivity"
+            android:label="@string/app_name"
+			android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <activity 
+            android:name="WebViewDialogActivity"
+            android:theme="@android:style/Theme.Dialog"
+            android:screenOrientation="portrait"/>
+        
+        <activity 
+            android:name="DialogActivity"
+            android:theme="@android:style/Theme.Dialog"
+            android:screenOrientation="portrait"/>
+        
+        <receiver 
+            android:name="com.airmh.soundllysdktest.TestBroadcastReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.airmh.soundllysdktest.SOUNDLLY_RESULT"/>
+                <action android:name="com.airmh.soundllysdktest.ON_BIND"/>
+			</intent-filter>
+        </receiver>
+        
+        <!-- SDK define Service, Braodcast -->
+		<service android:name="com.soundlly.sdk.service.SoundllyService" android:process=":remote"
+		    android:exported="false">
+			<intent-filter>
+			    <action android:name="com.airmh.soundllysdktest.BIND"/>
+			</intent-filter>
+		</service>
+        
+        <receiver android:name="com.soundlly.sdk.receiver.SoundllyReceiver">
+			<intent-filter>
+				<action android:name="android.intent.action.BOOT_COMPLETED" />
+			</intent-filter>
+			<intent-filter>
+				<action android:name="android.intent.action.PACKAGE_REMOVED" />
+				<action android:name="android.intent.action.PACKAGE_REPLACED" />
+				<data android:scheme="com.airmh.soundllysdktest" />
+			</intent-filter>
+		</receiver>
+
+    </application>
+
+</manifest>

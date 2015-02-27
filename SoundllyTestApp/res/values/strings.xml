@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SoundllyTestApp</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    
+    <!-- Activity 문구 -->
+    <string name="activity_run_button_text">액티비티에서 구동확인</string>
+    <string name="notactivity_run_button_text">액티비티 종료 상태에서 구동확인</string>
+    
+    <string name="result_text">Receive Result</string>
+    
+    <string name="bind_success">바인드에 성공하였습니다. 버튼을 눌러 동작을 선택하세요.</string>
+    <string name="result_receive_success">결과를 수신하였습니다. 아래 리스트를 확인해 주세요.</string>
+    <string name="list_item_click_message">클릭한 내용은 WebView로 노출할 수 없는 내용입니다.</string>
+    <string name="not_activity_finish_message">테스트를 위해 액티비티를 종료합니다.</string>
+    
+    <!-- ListView 문구 -->
+    <string name="type">Type : </string>
+    <string name="key">Key : </string>
+	<string name="value">Value : </string>
+	
+	<string name="webview_button">웹뷰 다이얼로그를 닫습니다.</string>
+	<string name="dialog_button">Soundlly Service를 종료합니다.</string>
+    
+</resources>
